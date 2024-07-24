@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const brcyptjs = require('bcryptjs');
 
-exports.signUp = async (req, res) => {
+exports.signUp = async (req, res, next) => {
     const { username, email, password } = req.body;
     const hashedPassword = brcyptjs.hashSync(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
@@ -10,6 +10,6 @@ exports.signUp = async (req, res) => {
         await newUser.save();
         res.status(201).json('User created successfully');
     } catch (err) {
-        res.status(500).json(err.message);
+        next(err);
     }
 };
