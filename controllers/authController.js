@@ -3,6 +3,7 @@ const brcyptjs = require('bcryptjs');
 const errorHandler = require('../utils/error');
 const jwt = require('jsonwebtoken');
 
+
 exports.signUp = async (req, res, next) => {
     const { username, email, password } = req.body;
     const hashedPassword = brcyptjs.hashSync(password, 10);
